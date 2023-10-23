@@ -1,6 +1,6 @@
 import Footer from '@/components/Footer';
-import { login } from '@/services/ant-design-pro/api';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
+import { userLoginUsingPOST } from '@/services/moapi-backend/userController';
 import {
   AlipayCircleOutlined,
   LockOutlined,
@@ -21,7 +21,7 @@ import { Alert, message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
 import Settings from '../../../../config/defaultSettings';
-import {userLoginUsingPOST} from "@/services/moapi-backend/userController";
+
 const ActionIcons = () => {
   const langClassName = useEmotionCss(({ token }) => {
     return {
@@ -106,11 +106,18 @@ const Login: React.FC = () => {
       const res = await userLoginUsingPOST({
         ...values,
       });
+      // 如果登录成功（响应有数据）
       if (res.data) {
+        // 获取当前URL的查询参数
         const urlParams = new URL(window.location.href).searchParams;
-        history.push(urlParams.get('redirect') || '/');
+        // 设置一个延迟100毫秒的定时器
+        // 定时器触发后，导航到重定向URL，如果没有重定向URL，则导航到根路径
+        setTimeout(() => {
+          history.push(urlParams.get('redirect') || '/');
+        }, 100);
+        // 更新全局状态，设置登录用户信息
         setInitialState({
-          loginUser: res.data
+          loginUser: res.data,
         });
         return;
       }
