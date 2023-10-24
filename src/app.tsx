@@ -1,7 +1,6 @@
 import Footer from '@/components/Footer';
-import { Question } from '@/components/RightContent';
+import { Question, SelectLang } from '@/components/RightContent';
 import { LinkOutlined } from '@ant-design/icons';
-import { SettingDrawer } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history, Link } from '@umijs/max';
 import { AvatarDropdown, AvatarName } from './components/RightContent/AvatarDropdown';
@@ -32,7 +31,7 @@ export async function getInitialState(): Promise<InitialState> {
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
-    actionsRender: () => [<Question key="doc" />],
+    actionsRender: () => [<Question key="doc" />, <SelectLang key="SelectLang" />],
     avatarProps: {
       src: initialState?.loginUser?.userAvatar,
       title: <AvatarName />,
@@ -88,17 +87,17 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       return (
         <>
           {children}
-          <SettingDrawer
-            disableUrlParams
-            enableDarkTheme
-            settings={initialState?.settings}
-            onSettingChange={(settings) => {
-              setInitialState((preInitialState) => ({
-                ...preInitialState,
-                settings,
-              }));
-            }}
-          />
+          {/*<SettingDrawer*/}
+          {/*  disableUrlParams*/}
+          {/*  enableDarkTheme*/}
+          {/*  settings={initialState?.settings}*/}
+          {/*  onSettingChange={(settings) => {*/}
+          {/*    setInitialState((preInitialState) => ({*/}
+          {/*      ...preInitialState,*/}
+          {/*      settings,*/}
+          {/*    }));*/}
+          {/*  }}*/}
+          {/*/>*/}
         </>
       );
     },
